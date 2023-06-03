@@ -1,4 +1,10 @@
 ---
+- name: Install dnsmasq
+  ansible.builtin.apt:
+    name: dnsmasq
+    state: present
+    update_cache: true
+    
 - name: Disable systemd-resolved
   ansible.builtin.service:
     name: systemd-resolved
@@ -14,14 +20,7 @@
   ansible.builtin.copy:
     dest: /etc/resolv.conf
     content: |
-      nameserver 8.8.8.8
       nameserver 127.0.0.1
-
-- name: Install dnsmasq
-  ansible.builtin.apt:
-    name: dnsmasq
-    state: present
-    update_cache: true
 
 - name: Configure dnsmasq
   ansible.builtin.copy:
