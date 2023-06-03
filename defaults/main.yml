@@ -10,3 +10,4 @@ cluster_config:
   server: false
   server_count: 1
   eth_intf: "eth0"
+  use_dnsmasq: false
