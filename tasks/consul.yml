@@ -1,0 +1,34 @@
+---
+- name: Remove config directory
+  ansible.builtin.file:
+    dest: /etc/consul.d
+    state: absent
+
+- name: Check / create the config directory exists
+  ansible.builtin.file:
+    dest: /etc/consul.d
+    state: directory
+    owner: consul
+    group: consul
+    mode: "0755"
+
+- name: Copy common agent config
+  ansible.builtin.template:
+    src: consul-agent.hcl.j2
+    dest: /etc/consul.d/agent.hcl
+    owner: consul
+    group: consul
+    mode: "0644"
+  notify:
+    - Restart consul
+
+- name: Copy service unit file
+  ansible.builtin.copy:
+    src: consul.service
+    dest: /etc/systemd/system/consul.service
+    owner: consul
+    group: consul
+    mode: "0644"
+    force: true
+  notify:
+    - Restart consul

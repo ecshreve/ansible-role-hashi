@@ -27,3 +27,6 @@
     update_cache: true
   ignore_errors: "{{ ansible_check_mode }}"
   
+- name: Include consul tasks
+  include_tasks: consul.yml
+  when: "'consul' in hashi_tools"

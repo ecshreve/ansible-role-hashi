@@ -6,3 +6,9 @@ hashi_tools:
   - nomad
   - packer
   
+consul_config:
+  dc: dcs
+  data_dir: /opt/consul
+  server: false
+  join_addr: "127.0.0.1"
+  eth_interface: eth0
