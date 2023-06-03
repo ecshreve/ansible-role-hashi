@@ -8,7 +8,8 @@ bootstrap_expect = {{ consul_config.server_count | int }}
 {% endif %}
 
 addresses {
-  http = {%raw%}"127.0.0.1 {{ GetInterfaceIP \"docker0\" }} {{ GetInterfaceIP \"{%endraw%}{{ consul_config.eth_intf }}{%raw%}\" }}"{%endraw%}
+  http = {%raw%}"127.0.0.1 {{ GetInterfaceIP \"docker0\" }} {{ GetInterfaceIP \"{%endraw%}{{ consul_config.eth_intf }}{%raw%}\" }}"
+{%endraw%}
 }
 
 advertise_addr = {%raw%}"{{ GetInterfaceIP \"{%endraw%}{{consul_config.eth_intf }}{%raw%}\" }}"{%endraw%}

@@ -1,0 +1,46 @@
+---
+- name: Remove config dir
+  ansible.builtin.file:
+    dest: /etc/nomad.d
+    state: absent
+
+- name: Check / create config directory exists
+  ansible.builtin.file:
+    dest: /etc/nomad.d
+    state: directory
+    owner: nomad
+    group: nomad
+    mode: "0755"
+
+- name: Copy server config
+  ansible.builtin.copy:
+    src: nomad-server.hcl
+    dest: /etc/nomad.d/server.hcl
+    owner: nomad
+    group: nomad
+    mode: "0644"
+  when: consul_config.server | bool
+  notify:
+    - Restart nomad
+
+- name: Copy client config
+  ansible.builtin.copy:
+    src: nomad-client.hcl
+    dest: /etc/nomad.d/client.hcl
+    owner: nomad
+    group: nomad
+    mode: "0644"
+  when: consul_config.server | bool == false
+  notify:
+    - Restart nomad
+
+- name: Copy service unit file
+  ansible.builtin.copy:
+    src: nomad.service
+    dest: /etc/systemd/system/nomad.service
+    owner: nomad
+    group: nomad
+    mode: "0644"
+    force: true
+  notify:
+    - Restart nomad

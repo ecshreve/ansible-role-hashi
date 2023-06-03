@@ -30,3 +30,7 @@
 - name: Include consul tasks
   include_tasks: consul.yml
   when: "'consul' in hashi_tools"
+
+- name: Include nomad tasks
+  include_tasks: nomad.yml
+  when: "'nomad' in hashi_tools"
