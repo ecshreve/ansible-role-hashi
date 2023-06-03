@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Eric Shreve
+  description: Minimal role to install Hashicorp tools on Ubuntu.
+  license: MIT
+  min_ansible_version: "2.15"
+  role_name: hashi
+  platforms:
+  - name: Ubuntu
+    versions:
+    - jammy
+  galaxy_tags:
+  - hashicorp
+  - container
+  - orchestration
+  - devops
+  - terraform
+  - consul
+  - nomad
+  - packer
+  - vault
+dependencies: []
