@@ -2,14 +2,10 @@
 # defaults file for ansible-role-hashi
 hashi_tools:
   - terraform
-  - consul
-  - nomad
-  - packer
   
-consul_config:
-  dc: "dcs"
-  data_dir: "/opt/consul"
+cluster_config:
+  dc: "dc1"
   join_addr: "127.0.0.1"
   server: false
-  server_count: 3
+  server_count: 1
   eth_intf: "eth0"

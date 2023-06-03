@@ -1,9 +1,4 @@
 ---
-- name: Remove config directory
-  ansible.builtin.file:
-    dest: /etc/consul.d
-    state: absent
-
 - name: Check / create the config directory exists
   ansible.builtin.file:
     dest: /etc/consul.d
@@ -11,6 +6,11 @@
     owner: consul
     group: consul
     mode: "0755"
+
+- name: Remove env file
+  ansible.builtin.file:
+    dest: /etc/consul.d/consul.env
+    state: absent
 
 - name: Copy common agent config
   ansible.builtin.template:

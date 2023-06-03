@@ -26,14 +26,17 @@ Example Playbook
 ----------------
 
 ```yaml
-- hosts: all
+- hosts: clients
   vars:
     hashi_tools:
-      - terraform
-      - packer
-      - vault
       - consul
       - nomad
+    cluster_config:
+      dc: "dc1"
+      server: false
+      server_count: 3
+      join_addr: "10.3.2.1"
+      eth_intf: "eth0"
   roles:
     - ecshreve.hashi
 ```

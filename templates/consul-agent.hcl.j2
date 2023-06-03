@@ -1,18 +1,19 @@
-datacenter = "{{ consul_config.dc }}"
-data_dir   = "{{ consul_config.data_dir }}"
-retry_join = ["{{ consul_config.join_addr }}"]
+datacenter = "{{ cluster_config.dc }}"
+data_dir   = "/opt/consul"
 
-server = {{ consul_config.server | lower }}
-{% if consul_config.server %}
-bootstrap_expect = {{ consul_config.server_count | int }}
+retry_join = ["{{ cluster_config.join_addr }}"]
+
+server = {{ cluster_config.server | lower }}
+{% if cluster_config.server %}
+bootstrap_expect = {{ cluster_config.server_count | int }}
 {% endif %}
 
 addresses {
-  http = {%raw%}"127.0.0.1 {{ GetInterfaceIP \"docker0\" }} {{ GetInterfaceIP \"{%endraw%}{{ consul_config.eth_intf }}{%raw%}\" }}"
+  http = {%raw%}"127.0.0.1 {{ GetInterfaceIP \"docker0\" }} {{ GetInterfaceIP \"{%endraw%}{{ cluster_config.eth_intf }}{%raw%}\" }}"
 {%endraw%}
 }
 
-advertise_addr = {%raw%}"{{ GetInterfaceIP \"{%endraw%}{{consul_config.eth_intf }}{%raw%}\" }}"{%endraw%}
+advertise_addr = {%raw%}"{{ GetInterfaceIP \"{%endraw%}{{cluster_config.eth_intf }}{%raw%}\" }}"{%endraw%}
 
 {%raw%}
 ports {

@@ -1,9 +1,4 @@
 ---
-- name: Remove config dir
-  ansible.builtin.file:
-    dest: /etc/nomad.d
-    state: absent
-
 - name: Check / create config directory exists
   ansible.builtin.file:
     dest: /etc/nomad.d
@@ -12,6 +7,11 @@
     group: nomad
     mode: "0755"
 
+- name: Remove env file
+  ansible.builtin.file:
+    dest: /etc/nomad.d/nomad.env
+    state: absent
+
 - name: Copy server config
   ansible.builtin.copy:
     src: nomad-server.hcl
@@ -19,7 +19,7 @@
     owner: nomad
     group: nomad
     mode: "0644"
-  when: consul_config.server | bool
+  when: cluster_config.server | bool
   notify:
     - Restart nomad
 
@@ -30,7 +30,7 @@
     owner: nomad
     group: nomad
     mode: "0644"
-  when: consul_config.server | bool == false
+  when: cluster_config.server | bool == false
   notify:
     - Restart nomad
 
