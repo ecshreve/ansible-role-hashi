@@ -34,3 +34,8 @@
 - name: Include nomad tasks
   include_tasks: nomad.yml
   when: "'nomad' in hashi_tools and configure_cluster"
+
+- name: Include dns tasks
+  include_tasks: dns.yml
+  when: configure_cluster and cluster_config.use_dnsmasq
+  
