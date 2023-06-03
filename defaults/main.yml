@@ -3,6 +3,7 @@
 hashi_tools:
   - terraform
   
+configure_cluster: false
 cluster_config:
   dc: "dc1"
   join_addr: "127.0.0.1"
