@@ -1,7 +1,7 @@
-Role Name
+Ansible Role ecshreve.hashi
 =========
 
-A brief description of the role goes here.
+ansible role to install hashicorp tools and configure a consul / nomad cluster
 
 Requirements
 ------------
