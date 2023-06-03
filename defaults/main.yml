@@ -7,8 +7,9 @@ hashi_tools:
   - packer
   
 consul_config:
-  dc: dcs
-  data_dir: /opt/consul
-  server: false
+  dc: "dcs"
+  data_dir: "/opt/consul"
   join_addr: "127.0.0.1"
-  eth_interface: eth0
+  server: false
+  server_count: 3
+  eth_intf: "eth0"

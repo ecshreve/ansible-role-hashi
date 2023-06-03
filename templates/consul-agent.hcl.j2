@@ -1,14 +1,19 @@
-datacenter = {{ consul_config.dc }}
-data_dir   = {{ consul_config.data_dir }}
-server = {{ consul_config.server }}
-retry_join = [{{ consul_config.join_addr }}]
+datacenter = "{{ consul_config.dc }}"
+data_dir   = "{{ consul_config.data_dir }}"
+retry_join = ["{{ consul_config.join_addr }}"]
+
+server = {{ consul_config.server | lower }}
+{% if consul_config.server %}
+bootstrap_expect = {{ consul_config.server_count | int }}
+{% endif %}
 
 addresses {
-  http = "127.0.0.1 {{ GetInterfaceIP "{{ eth_interface }}" }} {{ GetInterfaceIP \"docker0\" }}"
+  http = {%raw%}"127.0.0.1 {{ GetInterfaceIP \"docker0\" }} {{ GetInterfaceIP \"{%endraw%}{{ consul_config.eth_intf }}{%raw%}\" }}"{%endraw%}
 }
 
-advertise_addr = "{{ GetInterfaceIP "{{ eth_interface }}" }}"
+advertise_addr = {%raw%}"{{ GetInterfaceIP \"{%endraw%}{{consul_config.eth_intf }}{%raw%}\" }}"{%endraw%}
 
+{%raw%}
 ports {
   grpc  = 8502
   dns   = 8600
@@ -48,5 +53,4 @@ acl = {
   default_policy           = "allow"
   enable_token_persistence = true
 }
-
-bootstrap_expect = 3
+{%endraw%}
